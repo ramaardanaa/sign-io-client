@@ -1,7 +1,7 @@
 import * as Font from 'expo-font';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {Login,Register} from './pages/'
+import {Login,Register, SpeechToText,SignToText,DrawerNavbar} from './pages/'
 import {NavigationContainer, StackActions} from '@react-navigation/native'
 import {createStackNavigator} from  '@react-navigation/stack'
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -21,11 +21,9 @@ export default function App() {
     <NavigationContainer>
     <PaperProvider>
       <Stack.Navigator>
-      {/* <Stack.Screen name="Login" component={Login} options={{headerShown:false}}/> */}
+      <Stack.Screen name="Login" component={Login} options={{headerShown:false}}/>
       <Stack.Screen name="Register" component={Register} options={{headerShown:false}}/>
-      {/* <Stack.Screen name="Game" component={GameBoard}/>
-      <Stack.Screen name="Finish" component={Finish}/>
-      <Stack.Screen name="Leaderboard" component={LeaderBoard}/> */}
+      <Stack.Screen name="DrawerNavbar" component={DrawerNavbar} options={{headerShown:false}}/>
       </Stack.Navigator>
     </PaperProvider>
     </NavigationContainer>
