@@ -2,9 +2,11 @@ import React from 'react'
 import { StyleSheet,Image, ScrollView,View, TextInput,Alert,Text } from 'react-native';
 import { Button } from 'react-native-paper';
 
-export default function Login(){
+export default function Login({navigation}){
   return(
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
+      <ScrollView>
+      <View style={{paddingHorizontal:35,paddingBottom:70}}>
       <View>
         <Text style={{fontFamily:'Montserratbold',fontSize:25,color:'#5E60CE'}}>Welcome Back!</Text>
         <Text style={{fontFamily:'Montserrat',fontSize:15,color:'#929292'}}>Login to continue</Text>
@@ -28,13 +30,14 @@ export default function Login(){
         />
       </View>
       <View style={{marginTop:70}}>
-        <Button color='#6a4c93' dark labelStyle={{fontFamily:'Montserrat'}} style={{borderRadius:10, paddingVertical:5}} mode="contained">Login</Button>
+        <Button color='#6a4c93' onPress={() => navigation.replace('DrawerNavbar')} dark labelStyle={{fontFamily:'Montserrat'}} style={{borderRadius:10, paddingVertical:5}} mode="contained">Login</Button>
       </View>
       <View style={{marginTop:60}}>
-        <Button color='#6a4c93' labelStyle={{fontFamily:'Montserratbold'}} style={{borderRadius:10,borderWidth:2, paddingVertical:5}} mode="outlined">Create Account</Button>
+        <Button color='#6a4c93'  onPress={() => navigation.navigate('Register')} labelStyle={{fontFamily:'Montserratbold'}} style={{borderRadius:10,borderWidth:2, paddingVertical:5}} mode="outlined">Create Account</Button>
       </View>
-      
+      </View> 
     </ScrollView>
+    </View>
   )
 }
 
@@ -42,8 +45,7 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
     flexDirection:'column',
-    paddingVertical:70,
-    paddingHorizontal:40,
+    paddingTop:70,
     textAlign: 'left',
   }
 })
