@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import {
   StyleSheet,
-  Image,
-  ScrollView,
-  View,
-  TextInput,
-  Alert,
   Text,
+  View,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from "react-native";
-import { Button } from "react-native-paper";
-import { LinearGradient } from "expo-linear-gradient";
+// import { Audio, Permissions, FileSystem } from 'expo'
 import { Audio } from "expo-av";
 import * as FileSystem from "expo-file-system";
 import * as Permissions from "expo-permissions";
@@ -39,11 +35,31 @@ const recordingOptions = {
   },
 };
 
-export default function SpeechToText({ navigation }) {
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 40,
+    backgroundColor: "#fff",
+    alignItems: "center",
+  },
+  button: {
+    backgroundColor: "#1e88e5",
+    paddingVertical: 20,
+    width: "90%",
+    alignItems: "center",
+    borderRadius: 5,
+    padding: 8,
+    marginTop: 20,
+  },
+  text: {
+    color: "#fff",
+  },
+});
+
+export default function SpeechToTextButton() {
   const [recording, setRecording] = useState();
   const [isFetching, setIsFetching] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-  const [transcript, setTranscript] = useState([]);
+  const [transcript, setTranscript] = useState("");
 
   const deleteRecordingFile = async () => {
     try {
@@ -69,11 +85,10 @@ export default function SpeechToText({ navigation }) {
         type: type,
         name: `${Date.now()}.${ext}`,
       });
-      // console.log(formData);
+      console.log(formData);
 
       const { data } = await axios.post(
-        // DONT FORGET TO CHANGE THE LINK
-        "http://192.168.2.61:3000/speech/",
+        "http://192.168.2.61:3005/speech",
         formData,
         {
           headers: {
@@ -81,10 +96,8 @@ export default function SpeechToText({ navigation }) {
           },
         }
       );
-      const newData = transcript.concat(data.transcription);
-      // console.log("transcript", transcript);
-      // console.log("newData", newData);
-      setTranscript([...newData]);
+
+      setTranscript(data);
     } catch (error) {
       console.log("There was an error reading file", error);
       console.log(error);
@@ -142,101 +155,19 @@ export default function SpeechToText({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <LinearGradient
-          colors={["#834ea8", "#a583d7", "#e2cfea"]}
-          style={{
-            height: 550,
-            width: "100%",
-            borderBottomLeftRadius: 50,
-            borderBottomRightRadius: 50,
-            paddingBottom: 10,
-          }}
-        >
-          <Button
-            color="white"
-            onPress={() => navigation.openDrawer()}
-            style={{
-              width: 5,
-              marginTop: 35,
-              marginBottom: 10,
-              marginLeft: 15,
-            }}
-            labelStyle={{ fontSize: 40 }}
-            mode="text"
-            icon={require("../assets/menu.png")}
-          />
-          <ScrollView>
-            <View style={{ marginTop: 10, marginHorizontal: 35 }}>
-              <View style={{}}>
-                {/* <Text style={styles.textSpeech}>Hai Nama Saya Niko </Text>
-                <Text style={styles.textSpeech}>Wow Hebat banget</Text>
-                <Text style={styles.textSpeech}>Laper gan</Text>
-                <Text>{transcript}</Text> */}
-                {transcript?.map((record, i) => (
-                  <Text style={styles.textSpeech} key={i}>
-                    {record}
-                  </Text>
-                ))}
-              </View>
-            </View>
-          </ScrollView>
-        </LinearGradient>
-        <View style={{ alignItems: "center", marginTop: 60 }}>
-          {/* <Button
-            color="#a583d7"
-            style={{ paddingLeft: 20 }}
-            labelStyle={{ fontSize: 80 }}
-            mode="text"
-            icon={require("../assets/microphone.png")}
-          /> */}
-          <TouchableOpacity
-            style={styles.button}
-            onPressIn={startRecording}
-            onPressOut={handleOnPressOut}
-          >
-            {isFetching && <ActivityIndicator color="#ffffff" />}
-            {!isFetching && (
-              <Text style={styles.text}>
-                {isRecording ? "Recording..." : "Start recording"}
-              </Text>
-            )}
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+      <TouchableOpacity
+        style={styles.button}
+        onPressIn={startRecording}
+        onPressOut={handleOnPressOut}
+      >
+        {isFetching && <ActivityIndicator color="#ffffff" />}
+        {!isFetching && (
+          <Text style={styles.text}>
+            {isRecording ? "Recording..." : "Start recording"}
+          </Text>
+        )}
+      </TouchableOpacity>
+      <Text>Hasil : {`${transcript}`}</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    textAlign: "left",
-  },
-  textSpeech: {
-    fontFamily: "Montserratbold",
-    color: "#fff",
-    fontSize: 30,
-  },
-});
-
-// const styles = StyleSheet.create({
-//   container: {
-//     marginTop: 40,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//   },
-//   button: {
-//     backgroundColor: "#1e88e5",
-//     paddingVertical: 20,
-//     width: "90%",
-//     alignItems: "center",
-//     borderRadius: 5,
-//     padding: 8,
-//     marginTop: 20,
-//   },
-//   text: {
-//     color: "#fff",
-//   },
-// });
