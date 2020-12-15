@@ -9,14 +9,13 @@ export default function Login({navigation}){
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   
-  function login(){
+  function handlerLogin(){
     const payload = {
       email,
       password
     }
     dispatch(login(payload))
   }
-  
 
   return(
     <View style={styles.container}>
@@ -47,7 +46,7 @@ export default function Login({navigation}){
         />
       </View>
       <View style={{marginTop:70}}>
-        <Button color='#6a4c93' onPress={() => login()} dark labelStyle={{fontFamily:'Montserrat'}} style={{borderRadius:10, paddingVertical:5}} mode="contained">Login</Button>
+        <Button color='#6a4c93' onPress={handlerLogin} dark labelStyle={{fontFamily:'Montserrat'}} style={{borderRadius:10, paddingVertical:5}} mode="contained">Login</Button>
       </View>
       <View style={{marginTop:60}}>
         <Button color='#6a4c93'  onPress={() => navigation.navigate('Register')} labelStyle={{fontFamily:'Montserratbold'}} style={{borderRadius:10,borderWidth:2, paddingVertical:5}} mode="outlined">Create Account</Button>

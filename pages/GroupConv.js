@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet,Image, ScrollView,View,Text, TouchableOpacity  } from 'react-native';
-import { Avatar,Button,Card, Title, Paragraph } from 'react-native-paper';
+import { Avatar,Button,Card, Title, Paragraph, TextInput } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import Chatbox from '../components/Chatbox'
 
@@ -25,6 +25,10 @@ export default function GroupConv({navigation}){
         <ScrollView style={{marginHorizontal:20}}>
           <Chatbox/>
         </ScrollView>
+      </View>
+      <View>
+        <TextInput mode='outlined'></TextInput>
+        <Button mode='text'></Button>
       </View>
     </View>
   )

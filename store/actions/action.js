@@ -1,11 +1,12 @@
-import axios from '../.././axios/axios'
+import axios from '../../axios/axios'
 
 
 export function login(payload) {
   return(dispatch) => {
+    console.log(payload)
     axios({
       method:"post",
-      url: "/users/login",
+      url: "http://180.248.17.122:3000/users/login",
       data:{
         email: payload.email,
         password: payload.password
@@ -18,7 +19,7 @@ export function login(payload) {
       })
     })
     .catch(err => {
-      console.log(err.response);
+      console.log(err);
     })
   }
 }

@@ -6,6 +6,7 @@ import {Login,Register, SpeechToText,SignToText,DrawerNavbar} from './pages/'
 import {NavigationContainer, StackActions} from '@react-navigation/native'
 import {createStackNavigator} from  '@react-navigation/stack'
 import { Provider as PaperProvider } from 'react-native-paper';
+import Navigation from './Navigation'
 import store from './store/index'
 
 export default function App() {
@@ -20,23 +21,13 @@ export default function App() {
   if (!loaded) {
     return null;
   }
-   const access_token = ''
+   const access_token = 'a'
   return (
     <NavigationContainer>
     <PaperProvider>
       <Provider store={store}>
-      <Stack.Navigator>
-      {access_token ? (
-        <>
-        <Stack.Screen name="DrawerNavbar" component={DrawerNavbar} options={{headerShown:false}}/>
-        </>
-      ) : (
-        <>
-        <Stack.Screen name="Login" component={Login} options={{headerShown:false}}/>
-        <Stack.Screen name="Register" component={Register} options={{headerShown:false}}/>
-        </>
-      )}  
-      </Stack.Navigator>
+      
+        <Navigation/>
       </Provider>
     </PaperProvider>
     </NavigationContainer>
