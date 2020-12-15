@@ -5,7 +5,7 @@ import {  useIsFocused  } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions'
 
-export default function SignToText(){
+export default function SignToText({navigation}){
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [camera, setCamera] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -92,7 +92,7 @@ export default function SignToText(){
           ref={(ref) => {
             setCamera(ref);
           }}>
-            <Button color='#9F62FF' style={{width:5,marginTop:0,marginBottom:10,marginLeft:15}} labelStyle={{fontSize:50}} mode='text' icon={require('../assets/x.png')}/>
+            <Button onPress={() => navigation.navigate('GroupRoom')} color='#9F62FF' style={{width:5,marginTop:0,marginBottom:10,marginLeft:15}} labelStyle={{fontSize:50}} mode='text' icon={require('../assets/x.png')}/>
         </Camera>)}
         <Button 
         style={{borderRadius:0}} 
