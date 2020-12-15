@@ -20,12 +20,10 @@ export default function GroupConv({navigation}){
       <Avatar.Image size={60} style={styles.avatar} source={{uri:'https://cdn.discordapp.com/avatars/245906962716426250/57f763137784746812bd19d48987ad99.png?size=2048'}} />
       <Avatar.Image size={60} style={styles.avatar} source={{uri:'https://cdn.discordapp.com/avatars/245906962716426250/57f763137784746812bd19d48987ad99.png?size=2048'}} />
       </ScrollView>
-      </View>
-      <View style={{marginTop:20}}>
-        <ScrollView style={{marginHorizontal:20}}>
+      </View> 
+        <ScrollView style={{marginHorizontal:20,height:'70%'}}>
           <Chatbox/>
-        </ScrollView>
-      </View>
+        </ScrollView>      
       <View>
         <TextInput mode='outlined'></TextInput>
         <Button mode='text'></Button>

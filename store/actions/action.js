@@ -3,10 +3,9 @@ import axios from '../../axios/axios'
 
 export function login(payload) {
   return(dispatch) => {
-    console.log(payload)
     axios({
       method:"post",
-      url: "http://180.248.17.122:3000/users/login",
+      url: "/users/login",
       data:{
         email: payload.email,
         password: payload.password
@@ -17,6 +16,26 @@ export function login(payload) {
         type:"SET_TOKEN",
         payload: data.access_token
       })
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+}
+
+export function register(payload) {
+  return(dispatch) => {
+    axios({
+      method:"post",
+      url: "/users/register",
+      data:{
+        name:payload.name,
+        email: payload.email,
+        password: payload.password
+      }
+    })
+    .then(({data}) => {
+      console.log(data)
     })
     .catch(err => {
       console.log(err);
