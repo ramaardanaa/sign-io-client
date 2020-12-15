@@ -2,10 +2,14 @@ import React,{useState,useEffect} from 'react'
 import { StyleSheet,Image, ScrollView,View,Text, TouchableOpacity  } from 'react-native';
 import { Avatar,Button,Card, Title, Paragraph, TextInput } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
+import { useSelector } from 'react-redux';
 
 
 export default function Setting({navigation}){
   const [edit,setEdit] = useState(false)
+  const {name, profile_picture} = useSelector(state => state.users)
+  const [newImg, setImg] = useState('')
+
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
@@ -40,10 +44,10 @@ export default function Setting({navigation}){
         <View style={{alignItems:'center',marginTop:30}}>
           {edit? (
           <TouchableOpacity onPress={pickImage}> 
-            <Avatar.Image size={100} source={{uri:'https://cdn.discordapp.com/avatars/245906962716426250/57f763137784746812bd19d48987ad99.png?size=2048'}} />
+            <Avatar.Image size={100} source={{uri: newImg? newImg : profile_picture}} />
           </TouchableOpacity>) : (
           <TouchableOpacity> 
-            <Avatar.Image size={100} source={{uri:'https://cdn.discordapp.com/avatars/245906962716426250/57f763137784746812bd19d48987ad99.png?size=2048'}} />
+            <Avatar.Image size={100} source={{uri: profile_picture}} />
           </TouchableOpacity>)}
           
         </View>
@@ -55,7 +59,7 @@ export default function Setting({navigation}){
           disabled={edit ? false : true}
           autoCapitalize = 'none'
           style={{ height: 40,backgroundColor:'#f2f2f2' ,fontFamily:'Montserrat',fontSize:17, borderColor: 'gray',borderBottomWidth:1 }}
-          value="Nikolas Stefano"
+          value={name}
           // mode={edit ? 'outlined' : 'flat'}
           />
         </View>

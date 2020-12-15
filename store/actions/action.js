@@ -20,6 +20,14 @@ export function login(payload) {
           payload: data.access_token
         })
         dispatch({
+          type:"SET_NAME",
+          payload: data.name
+        })
+        dispatch({
+          type: "SET_PICTURE",
+          payload: data.profile_picture
+        })
+        dispatch({
           type:"SET_USER_LOADING",
           payload: false
         })
@@ -130,6 +138,10 @@ export function fetchOneRoom(payload) {
           payload: data
         })
         dispatch({
+          type: "SET_CHATS",
+          payload: data.chats
+        })
+        dispatch({
           type:"SET_LOADING_ROOM",
           payload: false
         })
@@ -163,6 +175,43 @@ export function register(payload) {
     })
     .catch(err => {
       console.log(err);
+    })
+  }
+}
+
+export function addMessage(payload) {
+  return(dispatch) => {
+    dispatch({
+      type:"SET_CHAT_SEND_LOADING",
+      payload: true
+    })
+    const {access_token, message, RoomId} = payload
+    axios({
+      method:"post",
+      url: "/chats",
+      headers: {
+        access_token
+      },
+      data:{
+        message,
+        RoomId
+      }
+    })
+    .then(({data}) => {
+      dispatch({
+        type:"SET_CHAT_SEND_LOADING",
+        payload: false
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type:"SET_CHAT_SEND_ERROR",
+        payload: true
+      })
+      dispatch({
+        type:"SET_CHAT_SEND_LOADING",
+        payload: false
+      })
     })
   }
 }
