@@ -14,7 +14,7 @@ function CustomDrawerContent({ navigation }) {
       </View>
       <View>
         <Button onPress={() => navigation.navigate('ReadSign')} labelStyle={styles.nav} mode='text'>Read Sign</Button>
-        <Button onPress={() => navigation.navigate('GroupConv')}labelStyle={styles.nav} mode='text'>Group Conversation</Button>
+        <Button onPress={() => navigation.navigate('GroupRoom')}labelStyle={styles.nav} mode='text'>Group Conversation</Button>
         <Button onPress={() => navigation.navigate('SpeechToText')}labelStyle={styles.nav} mode='text'>Speech To Text</Button>
         <Button labelStyle={styles.nav} mode='text'>Setting</Button>
         <Button labelStyle={styles.nav} mode='text'>Help</Button>
@@ -34,9 +34,9 @@ export default function DrawerNavBar(){
     drawerStyle={{width:'85%', borderTopRightRadius:40,borderBottomRightRadius:40}}
     drawerContent={(props) => <CustomDrawerContent {...props} />}>
        
+      <Drawer.Screen name="GroupRoom" component={GroupRoom} />
       <Drawer.Screen name="SpeechToText" component={SpeechToText} />
       <Drawer.Screen name="ReadSign" component={SignToText} />
-      <Drawer.Screen name="GroupRoom" component={GroupRoom} />
       <Drawer.Screen name="GroupConv" component={GroupConv} />
     </Drawer.Navigator>
   )

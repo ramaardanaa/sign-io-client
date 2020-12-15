@@ -9,7 +9,7 @@ export default function SpeechToText({navigation}){
     <ScrollView>
      <LinearGradient
         colors={['#834ea8','#a583d7', '#e2cfea']}
-        style={{height:550, borderBottomLeftRadius:50,borderBottomRightRadius:50, paddingBottom:10}}>
+        style={{height:550,width:'100%', borderBottomLeftRadius:50,borderBottomRightRadius:50, paddingBottom:10}}>
         <Button color='white' onPress={() => navigation.openDrawer()} style={{width:5,marginTop:35,marginBottom:10,marginLeft:15}} labelStyle={{fontSize:40}} mode='text' icon={require('../assets/menu.png')}/>
       <ScrollView>
         <View style={{marginTop:10,marginHorizontal:35}}>
