@@ -37,12 +37,10 @@ export default function GroupConv({navigation, route}){
           })
         }
       </ScrollView>
-      </View>
-      <View style={{marginTop:20}}>
-        <ScrollView style={{marginHorizontal:20}}>
+      </View> 
+        <ScrollView style={{marginHorizontal:20,height:'70%'}}>
           <Chatbox/>
-        </ScrollView>
-      </View>
+        </ScrollView>      
       <View>
         <TextInput mode='outlined'></TextInput>
         <Button mode='text'></Button>

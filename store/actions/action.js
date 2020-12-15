@@ -146,3 +146,23 @@ export function fetchOneRoom(payload) {
       })
   }
 }
+
+export function register(payload) {
+  return(dispatch) => {
+    axios({
+      method:"post",
+      url: "/users/register",
+      data:{
+        name:payload.name,
+        email: payload.email,
+        password: payload.password
+      }
+    })
+    .then(({data}) => {
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+}

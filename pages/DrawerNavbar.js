@@ -3,8 +3,17 @@ import {SignToText,SpeechToText,GroupConv,GroupRoom} from './index'
 import React from 'react'
 import {Avatar,Button} from 'react-native-paper'
 import { View,Text,StyleSheet } from 'react-native';
+import {useDispatch} from 'react-redux'
 
 function CustomDrawerContent({ navigation }) {
+  const dispatch = useDispatch()
+
+  function logout(){
+    dispatch({
+      type:"SET_TOKEN",
+      payload:''
+    })
+  }
   return (
     <DrawerContentScrollView>
       <View style={{justifyContent:'space-around', height:650}}>
@@ -20,7 +29,7 @@ function CustomDrawerContent({ navigation }) {
         <Button labelStyle={styles.nav} mode='text'>Help</Button>
       </View>
       <View style={{alignItems:'center'}}>
-        <Button dark color='#929292' mode='contained' style={{paddingVertical:10,width:250,borderRadius:40}}>Log out</Button>
+        <Button dark onPress={logout} color='#929292' mode='contained' style={{paddingVertical:10,width:250,borderRadius:40}}>Log out</Button>
       </View>
       </View>
     </DrawerContentScrollView>
