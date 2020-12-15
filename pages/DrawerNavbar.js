@@ -1,5 +1,5 @@
 import { createDrawerNavigator,DrawerContentScrollView,DrawerItemList } from '@react-navigation/drawer'
-import {SignToText,SpeechToText,GroupConv,GroupRoom} from './index'
+import {SignToText,SpeechToText,GroupConv,GroupRoom,Setting,Friend} from './index'
 import React from 'react'
 import {Avatar,Button} from 'react-native-paper'
 import { View,Text,StyleSheet } from 'react-native';
@@ -22,11 +22,11 @@ function CustomDrawerContent({ navigation }) {
         <Text style={{fontFamily:'Montserratlight', fontSize:25, marginTop:20}}>Nikolas Stefano</Text>
       </View>
       <View>
+        <Button onPress={() => navigation.navigate('Friend')} labelStyle={styles.nav} mode='text'>Friends</Button>
+        <Button onPress={() => navigation.navigate('GroupRoom')} labelStyle={styles.nav} mode='text'>Group Conversation</Button>
+        <Button onPress={() => navigation.navigate('SpeechToText')} labelStyle={styles.nav} mode='text'>Speech To Text</Button>
         <Button onPress={() => navigation.navigate('ReadSign')} labelStyle={styles.nav} mode='text'>Read Sign</Button>
-        <Button onPress={() => navigation.navigate('GroupRoom')}labelStyle={styles.nav} mode='text'>Group Conversation</Button>
-        <Button onPress={() => navigation.navigate('SpeechToText')}labelStyle={styles.nav} mode='text'>Speech To Text</Button>
-        <Button labelStyle={styles.nav} mode='text'>Setting</Button>
-        <Button labelStyle={styles.nav} mode='text'>Help</Button>
+        <Button onPress={() => navigation.navigate('Setting')} labelStyle={styles.nav} mode='text'>Setting</Button>
       </View>
       <View style={{alignItems:'center'}}>
         <Button dark onPress={logout} color='#929292' mode='contained' style={{paddingVertical:10,width:250,borderRadius:40}}>Log out</Button>
@@ -46,6 +46,9 @@ export default function DrawerNavBar(){
       <Drawer.Screen name="SpeechToText" component={SpeechToText} />
       <Drawer.Screen name="ReadSign" component={SignToText} />
       <Drawer.Screen name="GroupConv" component={GroupConv} />
+      <Drawer.Screen name="Setting" component={Setting}/>
+      <Drawer.Screen name="Friend" component={Friend}/>
+
     </Drawer.Navigator>
   )
 }

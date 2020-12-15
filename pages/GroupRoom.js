@@ -62,7 +62,7 @@ export default function GroupRoom({navigation}){
       </View>
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-        <Card style={{borderRadius:20}}>
+        <Card style={{borderRadius:20,alignItems:'center'}}>
           <Card.Actions>
             <View style={{flexDirection:'column',padding:20}}>
             <View style={{flexDirection:'column'}}>
