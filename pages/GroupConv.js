@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet,Image, ScrollView,View,Text, TouchableOpacity  } from 'react-native';
-import { Avatar,Button,Card, Title, Paragraph } from 'react-native-paper';
+import { Avatar,Button,Card, Title, Paragraph, TextInput } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import Chatbox from '../components/Chatbox'
 
@@ -20,11 +20,13 @@ export default function GroupConv({navigation}){
       <Avatar.Image size={60} style={styles.avatar} source={{uri:'https://cdn.discordapp.com/avatars/245906962716426250/57f763137784746812bd19d48987ad99.png?size=2048'}} />
       <Avatar.Image size={60} style={styles.avatar} source={{uri:'https://cdn.discordapp.com/avatars/245906962716426250/57f763137784746812bd19d48987ad99.png?size=2048'}} />
       </ScrollView>
-      </View>
-      <View style={{marginTop:20}}>
-        <ScrollView style={{marginHorizontal:20}}>
+      </View> 
+        <ScrollView style={{marginHorizontal:20,height:'70%'}}>
           <Chatbox/>
-        </ScrollView>
+        </ScrollView>      
+      <View>
+        <TextInput mode='outlined'></TextInput>
+        <Button mode='text'></Button>
       </View>
     </View>
   )

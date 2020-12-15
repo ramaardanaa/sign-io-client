@@ -25,6 +25,7 @@ export default function App() {
   if (!loaded) {
     return null;
   }
+
   const access_token = "a";
   return (
     <NavigationContainer>

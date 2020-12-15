@@ -1,4 +1,4 @@
-import axios from '../.././axios/axios'
+import axios from '../../axios/axios'
 
 
 export function login(payload) {
@@ -18,7 +18,27 @@ export function login(payload) {
       })
     })
     .catch(err => {
-      console.log(err.response);
+      console.log(err);
+    })
+  }
+}
+
+export function register(payload) {
+  return(dispatch) => {
+    axios({
+      method:"post",
+      url: "/users/register",
+      data:{
+        name:payload.name,
+        email: payload.email,
+        password: payload.password
+      }
+    })
+    .then(({data}) => {
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err);
     })
   }
 }
