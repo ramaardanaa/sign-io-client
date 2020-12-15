@@ -9,8 +9,7 @@ export default function GroupRoom({navigation}){
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = {backgroundColor: 'white', padding: 20};
-  
+  const containerStyle = {backgroundColor: 'none', padding: 20};
   return(
     <View style={styles.container}>
       <View>
@@ -28,18 +27,18 @@ export default function GroupRoom({navigation}){
     <View style={{alignItems:'flex-end'}}>
       <Button mode='text' labelStyle={{fontSize:40}} style={{width:10, alignItems:'center'}} onPress={showModal} icon={require('../assets/add.png')}/>
     </View>
-    <Portal>
+    <Portal style={{color:'none'}}>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-        <Card style={{borderRadius:20}}>
+        <Card style={{borderRadius:20,alignItems:'center'}}>
           <Card.Actions>
             <View style={{flexDirection:'column',padding:20}}>
             <View style={{flexDirection:'column'}}>
-              <Text style={{fontFamily:'Montserratbold',fontSize:20}}>Create Group Conversation</Text>
-              <TextInput mode="outlined" labelStyle={{fontFamily:'Montserrat'}} placeholder="..."></TextInput>
+              <Text style={{fontFamily:'Montserratbold',fontSize:20}}># Create Group Conversation</Text>
+              <TextInput mode="flat" style={{backgroundColor:'white',marginTop:20}} labelStyle={{backgroundColor:'white',fontFamily:'Montserrat',fontSize:10}} placeholder="Insert Group Name"></TextInput>
             </View>
             <View style={{flexDirection:'row',marginTop:40,justifyContent:'flex-end'}}>
             <Button>Ok</Button>
-            <Button>Cancel</Button>
+            <Button onPress={hideModal}>Cancel</Button>
             </View>
             </View>
           </Card.Actions>
