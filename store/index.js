@@ -1,19 +1,16 @@
-import {createStore,applyMiddleware,compose} from 'redux'
-import thunk from 'redux-thunk'
+import {createStore,applyMiddleware,compose, combineReducers} from 'redux';
+import thunk from 'redux-thunk';
+import users from './reducers/users';
+import rooms from './reducers/rooms';
+import room from './reducers/room';
 
-const initState = {
-  access_token: '',
-  group:[]
-}
+const reducer = combineReducers({
+  users,
+  rooms,
+  room
+})
 
-function reducer(state = initState,action){
-  switch (action.type){
-    case "SET_TOKEN" :
-      return {...state, access_token: action.payload}
-    default:
-      return state
-  }
-}
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer,composeEnhancers(applyMiddleware(thunk)))
 

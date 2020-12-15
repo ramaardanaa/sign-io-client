@@ -41,8 +41,7 @@ export default function DrawerNavBar(){
   return(
     <Drawer.Navigator
     drawerStyle={{width:'85%', borderTopRightRadius:40,borderBottomRightRadius:40}}
-    drawerContent={(props) => <CustomDrawerContent {...props} />}>
-       
+    drawerContent={(props) => <CustomDrawerContent {...props} />}>      
       <Drawer.Screen name="GroupRoom" component={GroupRoom} />
       <Drawer.Screen name="SpeechToText" component={SpeechToText} />
       <Drawer.Screen name="ReadSign" component={SignToText} />
