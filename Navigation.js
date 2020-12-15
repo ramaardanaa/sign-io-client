@@ -3,7 +3,7 @@ import {createStackNavigator} from  '@react-navigation/stack'
 import {useSelector} from 'react-redux'
 import {Login,Register, SpeechToText,SignToText,DrawerNavbar} from './pages/'
 export default function Navigation({navigation}){
-  const access_token = useSelector((state) => state.access_token)
+  const {access_token} = useSelector((state) => state.users)
   const Stack = createStackNavigator() 
   return(
     <>
