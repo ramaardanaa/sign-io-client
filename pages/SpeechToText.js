@@ -72,7 +72,8 @@ export default function SpeechToText({ navigation }) {
       // console.log(formData);
 
       const { data } = await axios.post(
-        "http://192.168.2.61:3005/speech",
+        // DONT FORGET TO CHANGE THE LINK
+        "http://192.168.2.61:3000/speech/",
         formData,
         {
           headers: {
@@ -80,7 +81,7 @@ export default function SpeechToText({ navigation }) {
           },
         }
       );
-      const newData = transcript.concat(data);
+      const newData = transcript.concat(data.transcription);
       // console.log("transcript", transcript);
       // console.log("newData", newData);
       setTranscript([...newData]);
