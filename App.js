@@ -13,6 +13,7 @@ import { NavigationContainer, StackActions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Provider as PaperProvider } from "react-native-paper";
 import store from "./store/index";
+import Navigation from "./Navigation"
 
 export default function App() {
   const [loaded] = Font.useFonts({
@@ -25,36 +26,11 @@ export default function App() {
   if (!loaded) {
     return null;
   }
-
-  const access_token = "a";
   return (
     <NavigationContainer>
       <PaperProvider>
         <Provider store={store}>
-          <Stack.Navigator>
-            {access_token ? (
-              <>
-                <Stack.Screen
-                  name="DrawerNavbar"
-                  component={DrawerNavbar}
-                  options={{ headerShown: false }}
-                />
-              </>
-            ) : (
-              <>
-                <Stack.Screen
-                  name="Login"
-                  component={Login}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="Register"
-                  component={Register}
-                  options={{ headerShown: false }}
-                />
-              </>
-            )}
-          </Stack.Navigator>
+          <Navigation />
         </Provider>
       </PaperProvider>
     </NavigationContainer>

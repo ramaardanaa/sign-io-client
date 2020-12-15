@@ -4,7 +4,7 @@ import { Avatar,Button,Card, Title, Paragraph } from 'react-native-paper';
 
 export default function Groupbox({navigation, room}){
   return(
-    <Card style={{borderRadius:20, marginTop:10}} onPress={() => navigation.navigate('GroupConv', { id:room.id })}>
+    <Card style={{borderRadius:20, marginTop:10}} onPress={() => navigation.navigate('GroupConv', { id:room.id, code:room.code })}>
       <Card.Content style={{flexDirection:'row', justifyContent:'space-between'}}>
         <View>
           <Title style={{fontFamily:'Montserratbold',color:'#834ea8'}}>{room.name}</Title>

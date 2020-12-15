@@ -44,7 +44,7 @@ export default function GroupRoom({navigation}){
             colors={['#834ea8','#a583d7', '#a583d7']}
             style={{height:100, borderBottomLeftRadius:20,borderBottomRightRadius:20, paddingBottom:20,flexDirection:'row',justifyContent:'space-between'}}>
             <Button color='white' onPress={() => navigation.openDrawer()} style={{width:5,marginTop:25,marginBottom:10,marginLeft:15}} labelStyle={{fontSize:30}} mode='text' icon={require('../assets/menu.png')}/>
-            <Text style={{fontFamily:'Montserratbold',color:'white', fontSize:20,marginTop:40}}>Group Conversation</Text>
+            <Text style={{fontFamily:'Montserratbold',color:'white', fontSize:20,marginTop:40}}>Rooms</Text>
             <Button style={{width:5,marginTop:35,marginBottom:10,marginLeft:15}} labelStyle={{fontSize:20}} color='white' mode='text' icon={require('../assets/search.png')}></Button>
         </LinearGradient>
         <View style={{marginTop:20, paddingHorizontal:15}}>

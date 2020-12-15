@@ -3,33 +3,37 @@ import {SignToText,SpeechToText,GroupConv,GroupRoom,Setting,Friend} from './inde
 import React from 'react'
 import {Avatar,Button} from 'react-native-paper'
 import { View,Text,StyleSheet } from 'react-native';
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 function CustomDrawerContent({ navigation }) {
+  const {name, profile_picture, userLoading} = useSelector(state => state.users)
   const dispatch = useDispatch()
 
-  function logout(){
+  const logout = () => {
     dispatch({
       type:"SET_TOKEN",
       payload:''
     })
   }
+
+  if (userLoading) return <Text>Loading...</Text>
+
   return (
     <DrawerContentScrollView>
       <View style={{justifyContent:'space-around', height:650}}>
       <View style={{alignItems:'center',marginTop:0}}>
-      <Avatar.Image size={100} source={{uri:'https://cdn.discordapp.com/avatars/245906962716426250/57f763137784746812bd19d48987ad99.png?size=2048'}} />
-        <Text style={{fontFamily:'Montserratlight', fontSize:25, marginTop:20}}>Nikolas Stefano</Text>
+      <Avatar.Image size={100} source={{uri: profile_picture}} />
+        <Text style={{fontFamily:'Montserratlight', fontSize:25, marginTop:20}}>{name}</Text>
       </View>
       <View>
         <Button onPress={() => navigation.navigate('Friend')} labelStyle={styles.nav} mode='text'>Friends</Button>
-        <Button onPress={() => navigation.navigate('GroupRoom')} labelStyle={styles.nav} mode='text'>Group Conversation</Button>
+        <Button onPress={() => navigation.navigate('GroupRoom')} labelStyle={styles.nav} mode='text'>Rooms</Button>
         <Button onPress={() => navigation.navigate('SpeechToText')} labelStyle={styles.nav} mode='text'>Speech To Text</Button>
         <Button onPress={() => navigation.navigate('ReadSign')} labelStyle={styles.nav} mode='text'>Read Sign</Button>
         <Button onPress={() => navigation.navigate('Setting')} labelStyle={styles.nav} mode='text'>Setting</Button>
       </View>
       <View style={{alignItems:'center'}}>
-        <Button dark onPress={logout} color='#929292' mode='contained' style={{paddingVertical:10,width:250,borderRadius:40}}>Log out</Button>
+        <Button dark onPress={() => logout()} color='#929292' mode='contained' style={{paddingVertical:10,width:250,borderRadius:40}}>Log out</Button>
       </View>
       </View>
     </DrawerContentScrollView>
