@@ -30,15 +30,17 @@ export default function GroupRoom({navigation}){
     </View>
     <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-        <Card>
-          <Card.Actions style={{}}>
+        <Card style={{borderRadius:20}}>
+          <Card.Actions>
+            <View style={{flexDirection:'column',padding:20}}>
             <View style={{flexDirection:'column'}}>
-              <Text>Create Group Conversation</Text>
-              <TextInput mode="outlined"></TextInput>
+              <Text style={{fontFamily:'Montserratbold',fontSize:20}}>Create Group Conversation</Text>
+              <TextInput mode="outlined" labelStyle={{fontFamily:'Montserrat'}} placeholder="..."></TextInput>
             </View>
-            <View>
-            <Button>Cancel</Button>
+            <View style={{flexDirection:'row',marginTop:40,justifyContent:'flex-end'}}>
             <Button>Ok</Button>
+            <Button>Cancel</Button>
+            </View>
             </View>
           </Card.Actions>
         </Card>
