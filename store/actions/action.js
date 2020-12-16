@@ -14,7 +14,8 @@ export function login(payload) {
         password: payload.password
       }
     })
-      .then(({data}) => {
+    .then(({data}) => {
+        console.log(data)
         dispatch({
           type:"SET_TOKEN",
           payload: data.access_token

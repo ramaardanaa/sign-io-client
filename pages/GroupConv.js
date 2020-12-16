@@ -8,6 +8,8 @@ import { addMessage, fetchOneRoom } from '../store/actions/action';
 // import socket from '../socket/socket';
 import io from 'socket.io-client/dist/socket.io';
 
+
+
 export default function GroupConv({navigation, route}){
   const {id, code} = route.params
   const [message, setMessage] = useState('')
@@ -109,9 +111,9 @@ export default function GroupConv({navigation, route}){
             ))
           }
         </ScrollView>      
-      <View>
+      <View style={{flexDirection:'row'}}>
         <TextInput onChangeText={(text) => handleMessageChange(text)} onSubmitEditing={(event) => sendMessage(event)} mode='outlined' value={message}></TextInput>
-        <Button mode='text'></Button>
+        <Button mode='contained' style={{justifyContent:'center'}}>Submit</Button>
       </View>
     </View>
   )
