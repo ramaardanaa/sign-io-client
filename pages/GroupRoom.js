@@ -8,7 +8,7 @@ import { addRoom, fetchRooms } from '../store/actions/action';
 
 export default function GroupRoom({navigation}){
   const [visible, setVisible] = useState(false);
-  const [roomName, setRoomName] = useState('Lalala')
+  const [roomName, setRoomName] = useState('')
   const {rooms, roomLoading} = useSelector(state => state.rooms)
   const {access_token} = useSelector(state => state.users)
   const dispatch = useDispatch()

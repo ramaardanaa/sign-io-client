@@ -16,6 +16,8 @@ function CustomDrawerContent({ navigation }) {
     })
   }
 
+  
+
   if (userLoading) return <Text>Loading...</Text>
 
   return (
