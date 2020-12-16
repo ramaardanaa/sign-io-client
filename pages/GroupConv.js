@@ -5,8 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Chatbox from '../components/Chatbox'
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, fetchOneRoom } from '../store/actions/action';
-// import socket from '../socket/socket';
-import io from 'socket.io-client/dist/socket.io';
+import socket from '../socket/socket';
 
 export default function GroupConv({navigation, route}){
   const {id, code} = route.params
@@ -16,28 +15,24 @@ export default function GroupConv({navigation, route}){
   const {access_token} = useSelector(state => state.users)
   const {name} = useSelector(state => state.users)
   const dispatch = useDispatch()
-  let socket = io.connect("http://192.168.100.6:3000/", {
-    transports: ['websocket'],
-    reconnectionAttempts: 15
-  });
 
   const handleMessageChange = (text) => {
     setMessage(text)
   }
 
-  socket.on('newMessage', ({name, message, createdAt}) => {
-    // const payload = {
-    //   id,
-    //   access_token
-    // }
-    // dispatch(fetchOneRoom(payload))
-    const payload = {
-      name, message, createdAt
-    }
-    const newRealTime = realtimeMessage.map(el => el)
-    newRealTime.push(payload)
-    setRealtimeMessage(newRealTime)
-  })
+  // socket.on('newMessage', ({name, message, createdAt}) => {
+  //   // const payload = {
+  //   //   id,
+  //   //   access_token
+  //   // }
+  //   // dispatch(fetchOneRoom(payload))
+  //   const payload = {
+  //     name, message, createdAt
+  //   }
+  //   const newRealTime = realtimeMessage.map(el => el)
+  //   newRealTime.push(payload)
+  //   setRealtimeMessage(newRealTime)
+  // })
 
   const sendMessage = (event) => {
     event.preventDefault()
@@ -48,6 +43,7 @@ export default function GroupConv({navigation, route}){
     }
     dispatch(addMessage(payload))
     const createdAt = Date.now()
+    console.log(name, createdAt)
     socket.emit('sendMessage', {id: code, name, message, createdAt})
     setMessage('')
   }
@@ -57,6 +53,7 @@ export default function GroupConv({navigation, route}){
       id,
       access_token
     }
+    socket.connect()
     dispatch(fetchOneRoom(payload))
     socket.emit('join', code)
   }, [id])
@@ -69,7 +66,9 @@ export default function GroupConv({navigation, route}){
       // }
       // dispatch(fetchOneRoom(payload))
       const payload = {
-        name, message, createdAt
+        User: {name}, 
+        message, 
+        createdAt
       }
       const newRealTime = realtimeMessage.map(el => el)
       newRealTime.push(payload)
