@@ -5,7 +5,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Chatbox from '../components/Chatbox'
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, fetchOneRoom } from '../store/actions/action';
-import socket from '../socket/socket';
+// import socket from '../socket/socket';
+import io from 'socket.io-client/dist/socket.io';
 
 export default function GroupConv({navigation, route}){
   const {id, code} = route.params
@@ -15,6 +16,10 @@ export default function GroupConv({navigation, route}){
   const {access_token} = useSelector(state => state.users)
   const {name} = useSelector(state => state.users)
   const dispatch = useDispatch()
+  let socket = io.connect("http://192.168.100.6:3000/", {
+    transports: ['websocket'],
+    reconnectionAttempts: 15
+  });
 
   const handleMessageChange = (text) => {
     setMessage(text)
@@ -53,7 +58,6 @@ export default function GroupConv({navigation, route}){
       access_token
     }
     dispatch(fetchOneRoom(payload))
-    socket.connect()
     socket.emit('join', code)
   }, [id])
 
@@ -71,7 +75,7 @@ export default function GroupConv({navigation, route}){
       newRealTime.push(payload)
       setRealtimeMessage(newRealTime)
     })
-  }, [])
+  }, [realtimeMessage])
 
   if (loadingRoom) return <Text>Loading...</Text>
 
