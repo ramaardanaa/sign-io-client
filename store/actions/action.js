@@ -28,6 +28,10 @@ export function login(payload) {
           payload: data.profile_picture
         })
         dispatch({
+          type: "SET_UNIQUE_CODE",
+          payload: data.unique_code
+        })
+        dispatch({
           type:"SET_USER_LOADING",
           payload: false
         })
@@ -161,20 +165,28 @@ export function fetchOneRoom(payload) {
 
 export function register(payload) {
   return(dispatch) => {
+    dispatch({
+      type:"SET_USER_LOADING",
+      payload: true
+    })
     axios({
       method:"post",
       url: "/users/register",
       data:{
-        name:payload.name,
+        name: payload.name,
         email: payload.email,
         password: payload.password
       }
     })
     .then(({data}) => {
       console.log(data)
+      dispatch({
+        type:"SET_USER_LOADING",
+        payload: false
+      })
     })
     .catch(err => {
-      console.log(err);
+      console.log(err)
     })
   }
 }
@@ -292,6 +304,81 @@ export function fetchFriends(payload) {
         })
         dispatch({
           type:"SET_LOADING_FRIEND",
+          payload: false
+        })
+      })
+  }
+}
+
+export function addFriend(payload) {
+  return (dispatch) => {
+    const {access_token, unique_code} = payload
+    dispatch({
+      type:"SET_LOADING_FRIEND",
+      payload: true
+    })
+    axios({
+      method:"POST",
+      url: `/friends`,
+      headers: {
+        access_token
+      },
+      data: {
+        unique_code
+      }
+    })
+      .then(({data}) => {
+        dispatch({
+          type:"SET_LOADING_FRIEND",
+          payload: false
+        })
+        dispatch(fetchFriends(access_token))
+      })
+      .catch(err => {
+        dispatch({
+          type:"SET_ERROR_FRIEND",
+          payload: true
+        })
+        dispatch({
+          type:"SET_LOADING_FRIEND",
+          payload: false
+        })
+      })
+  }
+}
+
+export function joinRoom (payload) {
+  return (dispatch) => {
+    console.log(payload)
+    const {access_token, code} = payload
+    dispatch({
+      type:"SET_ROOM_LOADING",
+      payload: true
+    })
+    axios({
+      method: 'POST',
+      url: '/members',
+      headers: {
+        access_token
+      },
+      data: {
+        code
+      }
+    })
+      .then(({ data }) => {
+        dispatch({
+          type:"SET_ROOM_LOADING",
+          payload: false
+        })
+        dispatch(fetchRooms(access_token))
+      })
+      .catch(err => {
+        dispatch({
+          type:"SET_ROOM_ERROR",
+          payload: true
+        })
+        dispatch({
+          type:"SET_ROOM_LOADING",
           payload: false
         })
       })

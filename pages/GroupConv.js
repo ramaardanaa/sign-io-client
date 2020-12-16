@@ -6,8 +6,7 @@ import Chatbox from '../components/Chatbox'
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, fetchOneRoom } from '../store/actions/action';
 import socket from '../socket/socket';
-
-
+import * as Speech from 'expo-speech';
 
 export default function GroupConv({navigation, route}){
 
@@ -23,19 +22,11 @@ export default function GroupConv({navigation, route}){
     setMessage(text)
   }
 
-  // socket.on('newMessage', ({name, message, createdAt}) => {
-  //   // const payload = {
-  //   //   id,
-  //   //   access_token
-  //   // }
-  //   // dispatch(fetchOneRoom(payload))
-  //   const payload = {
-  //     name, message, createdAt
-  //   }
-  //   const newRealTime = realtimeMessage.map(el => el)
-  //   newRealTime.push(payload)
-  //   setRealtimeMessage(newRealTime)
-  // })
+  const handleBackButton = (event) => {
+    event.preventDefault()
+    socket.emit('disconnecting', {id: code})
+    navigation.replace('DrawerNavbar',{ screen: 'GroupRoom' })
+  }
 
   const sendMessage = (event) => {
     event.preventDefault()
@@ -46,7 +37,7 @@ export default function GroupConv({navigation, route}){
     }
     dispatch(addMessage(payload))
     const createdAt = Date.now()
-    console.log(name, createdAt)
+    Speech.speak(message, { language: "id-ID" })
     socket.emit('sendMessage', {id: code, name, message, createdAt})
     setMessage('')
   }
@@ -77,8 +68,8 @@ export default function GroupConv({navigation, route}){
       newRealTime.push(payload)
       setRealtimeMessage(newRealTime)
     })
-  }, [realtimeMessage])
- 
+  }, [])
+
   if (loadingRoom) return <Text>Loading...</Text>
 
   return(
@@ -86,7 +77,7 @@ export default function GroupConv({navigation, route}){
     
     <View style={styles.container}>
       <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-          <Button color='#834ea8' onPress={() => navigation.replace('DrawerNavbar',{ screen: 'GroupRoom' })} style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:20}} mode='text' icon={require('../assets/back.png')}/>
+          <Button color='#834ea8' onPress={(event) => handleBackButton(event)} style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:20}} mode='text' icon={require('../assets/back.png')}/>
             <Text style={{fontFamily:'Montserratbold',fontSize:20,marginTop:15,color:'#834ea8'}}>{room.name}</Text>
           <Button color='#834ea8' onPress={() => navigation.navigate('GroupDetail')} style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:30}} mode='text' icon={require('../assets/detail.png')}/>
         </View>

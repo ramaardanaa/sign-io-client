@@ -4,12 +4,13 @@ import { Button,Card, Title, Paragraph, Avatar,Modal, Portal,TextInput } from 'r
 import { LinearGradient } from 'expo-linear-gradient';
 import Groupbox from '../components/Groupbox'
 import { useSelector, useDispatch } from 'react-redux';
-import { addRoom, fetchRooms } from '../store/actions/action';
+import { addRoom, fetchRooms, joinRoom } from '../store/actions/action';
 
 export default function GroupRoom({navigation}){
   const [visible, setVisible] = useState(false);
   const [visible1, setVisible1] = useState(false);
-  const [roomName, setRoomName] = useState('')
+  const [roomName, setRoomName] = useState('');
+  const [roomCode, setRoomCode] = useState('');
   const {rooms, roomLoading} = useSelector(state => state.rooms)
   const {access_token} = useSelector(state => state.users)
   const dispatch = useDispatch()
@@ -24,14 +25,30 @@ export default function GroupRoom({navigation}){
     setRoomName(text)
   }
 
+  const handleRoomCodeChange = (text) => {
+    setRoomCode(text)
+    console.log(text)
+  }
+
   const addingRoom = (event) => {
     event.preventDefault()
+    console.log('masuk')
     setVisible(false)
     const payload = {
       name: roomName,
       access_token: access_token
     }
     dispatch(addRoom(payload))
+  }
+
+  const joiningRoom = (event) => {
+    event.preventDefault()
+    setVisible1(false)
+    const payload = {
+      access_token,
+      code: roomCode
+    }
+    dispatch(joinRoom(payload))
   }
 
   useEffect(() => {
@@ -88,10 +105,10 @@ export default function GroupRoom({navigation}){
             <View style={{flexDirection:'column',padding:20}}>
             <View style={{flexDirection:'column', alignItems:'center'}}>
               <Text style={{fontFamily:'Montserratbold',fontSize:20}}>Join a Room</Text>
-              <TextInput mode="outlined" style={{width:300,marginTop:20}} labelStyle={{fontFamily:'Montserrat'}} value={roomName}  placeholder="Room Code"></TextInput>
+              <TextInput onChangeText={(text) => handleRoomCodeChange(text)} mode="outlined" style={{width:300,marginTop:20}} labelStyle={{fontFamily:'Montserrat'}} value={roomCode}  placeholder="Room Code"></TextInput>
             </View>
             <View style={{flexDirection:'row',marginTop:40,justifyContent:'flex-end'}}>
-            <Button>Join</Button>
+            <Button onPress={(event) => joiningRoom(event)}>Join</Button>
             <Button onPress={() => {setVisible1(false)}}>Cancel</Button>
             </View>
             </View>
