@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import GroupDetail from './GroupDetail';
 
 function CustomDrawerContent({ navigation }) {
-  const {name, profile_picture, userLoading} = useSelector(state => state.users)
+  const {name, profile_picture, userLoading, unique_code} = useSelector(state => state.users)
   const dispatch = useDispatch()
 
   const logout = () => {
@@ -17,8 +17,6 @@ function CustomDrawerContent({ navigation }) {
     })
   }
 
-  
-
   if (userLoading) return <Text>Loading...</Text>
 
   return (
@@ -27,7 +25,7 @@ function CustomDrawerContent({ navigation }) {
       <View style={{alignItems:'center',marginTop:0}}>
       <Avatar.Image size={100} source={{uri: profile_picture}} />
         <Text style={{fontFamily:'Montserratlight', fontSize:25, marginTop:20}}>{name}</Text>
-        <Text style={{fontFamily:'Montserratlight', fontSize:15}}>#8032</Text>
+        <Text style={{fontFamily:'Montserratlight', fontSize:15}}>{unique_code}</Text>
       </View>
       <View>
         <Button onPress={() => navigation.navigate('Friend')} labelStyle={styles.nav} mode='text'>Friends</Button>

@@ -12,7 +12,7 @@ export default function Register({navigation}){
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
 
-  function registerHandler(){
+  const registerHandler = () => {
     const payload = {
       name,
       email,
@@ -21,6 +21,7 @@ export default function Register({navigation}){
     dispatch(register(payload))
     navigation.navigate('Login')
   }
+
   return(
     <View style={styles.container}>
       <ScrollView>
@@ -55,7 +56,7 @@ export default function Register({navigation}){
         />
       </View>
       <View style={{marginTop:100}}>
-        <Button color='#6a4c93' onPress={() => navigation.navigate('Login')} dark labelStyle={{fontFamily:'Montserrat'}} style={{borderRadius:10, paddingVertical:5}} mode="contained">Create Account</Button>
+        <Button color='#6a4c93' onPress={() => registerHandler()} dark labelStyle={{fontFamily:'Montserrat'}} style={{borderRadius:10, paddingVertical:5}} mode="contained">Create Account</Button>
       </View>
       <View style={{marginTop:60}}>
         <Button color='#6a4c93' onPress={registerHandler} labelStyle={{fontFamily:'Montserratbold'}} style={{borderRadius:10,borderWidth:2, paddingVertical:5}} mode="outlined">Login</Button>

@@ -2,6 +2,7 @@ const initState = {
   name: '',
   profile_picture: '',
   access_token: '',
+  unique_code: '',
   userLoading: false,
   userError: true
 }
@@ -14,6 +15,8 @@ export default function users(state = initState,action){
       return {...state, name: action.payload}
     case "SET_PICTURE" :
       return {...state, profile_picture: action.payload}
+    case "SET_UNIQUE_CODE":
+      return {...state, unique_code: action.payload}
     case "SET_USER_LOADING" :
       return {...state, userLoading: action.payload}
     case "SET_USER_ERROR" :
