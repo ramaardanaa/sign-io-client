@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import users from './reducers/users';
 import rooms from './reducers/rooms';
 import room from './reducers/room';
+import friends from './reducers/friends'
 
 const reducer = combineReducers({
   users,
   rooms,
-  room
+  room,
+  friends
 })
 
 

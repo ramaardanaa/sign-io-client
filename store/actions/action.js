@@ -260,3 +260,40 @@ export function updateUser(payload) {
       })
   }
 }
+
+export function fetchFriends(payload) {
+  return (dispatch) => {
+    dispatch({
+      type:"SET_LOADING_FRIEND",
+      payload: true
+    })
+    axios({
+      method:"GET",
+      url: `/friends`,
+      headers: {
+        access_token: payload
+      }
+    })
+      .then(({data}) => {
+        console.log(data)
+        dispatch({
+          type:"SET_FRIENDS",
+          payload: data
+        })
+        dispatch({
+          type:"SET_LOADING_FRIEND",
+          payload: false
+        })
+      })
+      .catch(err => {
+        dispatch({
+          type:"SET_ERROR_FRIEND",
+          payload: true
+        })
+        dispatch({
+          type:"SET_LOADING_FRIEND",
+          payload: false
+        })
+      })
+  }
+}
