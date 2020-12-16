@@ -7,7 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, fetchOneRoom } from '../store/actions/action';
 import socket from '../socket/socket';
 
+
+
 export default function GroupConv({navigation, route}){
+
   const {id, code} = route.params
   const [message, setMessage] = useState('')
   const [realtimeMessage, setRealtimeMessage] = useState([])
@@ -75,15 +78,17 @@ export default function GroupConv({navigation, route}){
       setRealtimeMessage(newRealTime)
     })
   }, [realtimeMessage])
-
+ 
   if (loadingRoom) return <Text>Loading...</Text>
 
   return(
+    <>
+    
     <View style={styles.container}>
       <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-          <Button color='#834ea8' onPress={() => navigation.openDrawer()} style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:30}} mode='text' icon={require('../assets/menu.png')}/>
+          <Button color='#834ea8' onPress={() => navigation.replace('DrawerNavbar',{ screen: 'GroupRoom' })} style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:20}} mode='text' icon={require('../assets/back.png')}/>
             <Text style={{fontFamily:'Montserratbold',fontSize:20,marginTop:15,color:'#834ea8'}}>{room.name}</Text>
-          <Button color='#834ea8' style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:30}} mode='text' icon={require('../assets/addfriend.png')}/>
+          <Button color='#834ea8' onPress={() => navigation.navigate('GroupDetail')} style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:30}} mode='text' icon={require('../assets/detail.png')}/>
         </View>
       <View style={{marginHorizontal:20, height:70}}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -113,6 +118,7 @@ export default function GroupConv({navigation, route}){
         <Button mode='text'></Button>
       </View>
     </View>
+    </>
   )
 }
 
