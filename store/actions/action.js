@@ -215,3 +215,48 @@ export function addMessage(payload) {
     })
   }
 }
+
+export function updateUser(payload) {
+  return (dispatch) => {
+    const {access_token, name, profile_picture} = payload
+    dispatch({
+      type:"SET_USER_LOADING",
+      payload: true
+    })
+    axios({
+      method:"put",
+      url: `/users/edit`,
+      headers: {
+        access_token
+      },
+      data:{
+        name,
+        profile_picture
+      }
+    })
+      .then(({data}) => {
+        dispatch({
+          type:"SET_NAME",
+          payload: data.name
+        })
+        dispatch({
+          type: "SET_PICTURE",
+          payload: data.profile_picture
+        })
+        dispatch({
+          type:"SET_USER_LOADING",
+          payload: false
+        })
+      })
+      .catch(err => {
+        dispatch({
+          type:"SET_USER_ERROR",
+          payload: true
+        })
+        dispatch({
+          type:"SET_USER_LOADING",
+          payload: false
+        })
+      })
+  }
+}
