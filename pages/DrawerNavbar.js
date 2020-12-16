@@ -4,6 +4,7 @@ import React from 'react'
 import {Avatar,Button} from 'react-native-paper'
 import { View,Text,StyleSheet } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux'
+import GroupDetail from './GroupDetail';
 
 function CustomDrawerContent({ navigation }) {
   const {name, profile_picture, userLoading} = useSelector(state => state.users)
@@ -26,6 +27,7 @@ function CustomDrawerContent({ navigation }) {
       <View style={{alignItems:'center',marginTop:0}}>
       <Avatar.Image size={100} source={{uri: profile_picture}} />
         <Text style={{fontFamily:'Montserratlight', fontSize:25, marginTop:20}}>{name}</Text>
+        <Text style={{fontFamily:'Montserratlight', fontSize:15}}>#8032</Text>
       </View>
       <View>
         <Button onPress={() => navigation.navigate('Friend')} labelStyle={styles.nav} mode='text'>Friends</Button>
@@ -54,7 +56,7 @@ export default function DrawerNavBar(){
       <Drawer.Screen name="GroupConv" component={GroupConv} />
       <Drawer.Screen name="Setting" component={Setting}/>
       <Drawer.Screen name="Friend" component={Friend}/>
-
+      <Drawer.Screen name="GroupDetail" component={GroupDetail}/>
     </Drawer.Navigator>
   )
 }
