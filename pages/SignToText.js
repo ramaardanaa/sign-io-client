@@ -54,6 +54,7 @@ export default function SignToText({ navigation }) {
     let desiredRatio = "4:3";
     if (Platform.OS === "android") {
       const ratios = await camera.getSupportedRatiosAsync();
+      console.log(ratios)
       let distances = {};
       let realRatios = {};
       let minDistance = null;
@@ -158,12 +159,21 @@ export default function SignToText({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Button
+            onPress={() => navigation.navigate("GroupRoom")}
+            color="#9F62FF"
+            style={{ width: 5, marginTop: 0, marginBottom: 10, marginLeft: 15 }}
+            labelStyle={{ fontSize: 50 }}
+            mode="text"
+            icon={require("../assets/x.png")}
+          />
+      <View style={{height:450}}>
       {isFocused && (
         <Camera
           type={Camera.Constants.Type.back}
           style={[styles.cameraPreview, { marginTop: imagePadding }]}
           onCameraReady={setCameraReady}
-          ratio={ratio}
+          ratio={'1:1'}
           ref={(ref) => {
             setCamera(ref);
           }}
@@ -175,18 +185,12 @@ export default function SignToText({ navigation }) {
           // onReady={handleCameraStream}
           // autorender={true}
         >
-          <Button
-            onPress={() => navigation.navigate("GroupRoom")}
-            color="#9F62FF"
-            style={{ width: 5, marginTop: 0, marginBottom: 10, marginLeft: 15 }}
-            labelStyle={{ fontSize: 50 }}
-            mode="text"
-            icon={require("../assets/x.png")}
-          />
+          
         </Camera>
       )}
+      </View>
       <Button
-        style={{ borderRadius: 0 }}
+        style={{ borderRadius: 20,paddingVertical:10, marginTop:20,marginHorizontal:20 }}
         mode="contained"
         onPress={() => {
           takePicture();
