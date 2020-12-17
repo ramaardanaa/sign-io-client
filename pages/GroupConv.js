@@ -62,8 +62,7 @@ export default function GroupConv({ navigation, route }) {
   const [recording, setRecording] = useState();
   const [isFetching, setIsFetching] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-
-
+  const [scrollView, setScrollView] = useState(null)
 
   const deleteRecordingFile = async () => {
     try {
@@ -211,24 +210,15 @@ export default function GroupConv({ navigation, route }) {
   useEffect(() => {
     const payload = {
       id,
-
       access_token
     }
-    socket.connect()
     dispatch(fetchOneRoom(payload))
-    socket.emit('join', code)
   }, [id])
 
 
   useEffect(() => {
     socket.on("newMessage", ({ name, message, createdAt }) => {
-      // const payload = {
-      //   id,
-      //   access_token
-      // }
-      // dispatch(fetchOneRoom(payload))
       const payload = {
-
         User: {name}, 
         message, 
         createdAt
@@ -240,6 +230,15 @@ export default function GroupConv({ navigation, route }) {
     })
   }, [realtimeMessage])
 
+  useEffect(() => {
+    socket.on("newMember", () => {
+      const payload = {
+        id,
+        access_token
+      }
+      dispatch(fetchOneRoom(payload))
+    }) 
+  }, [])
 
   if (loadingRoom) return <Text>Loading...</Text>;
 
@@ -268,13 +267,14 @@ export default function GroupConv({ navigation, route }) {
           })}
         </ScrollView>
       </View>
-      <ScrollView style={{ marginHorizontal: 20, height: "70%" }}>
+      <ScrollView style={{ marginHorizontal: 20, height: "70%" }} ref={ref => {setScrollView(ref)}} onContentSizeChange={() => scrollView.scrollToEnd({animated: true})}>
         {chats.map((chat) => (
           <Chatbox key={chat.id} chat={chat} />
         ))}
         {realtimeMessage.map((chat, i) => (
           <Chatbox key={i} chat={chat} />
         ))}
+        <View></View>
       </ScrollView>
 
       {/* Record Button  */}

@@ -5,6 +5,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import {joinRoom } from '../store/actions/action';
 import { addFriend} from '../store/actions/action';
 import {useSelector,useDispatch} from 'react-redux'
+import socket from '../socket/socket';
 export default function Scan({navigation,route}) {
   const {status} = route.params
   const [hasPermission, setHasPermission] = useState(null);
@@ -40,6 +41,7 @@ export default function Scan({navigation,route}) {
     if(data.from==='rooms'){
       alert(`Join room with id ${data.code} success!`);
       joiningRoom(data.code)
+      socket.emit('newJoin', code)
       navigation.goBack()
     }else if(data.from === 'friends'){
       alert(`Add Friend with id ${data.code} success!`);

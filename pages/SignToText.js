@@ -23,8 +23,8 @@ import {
   bundleResourceIO,
 } from "@tensorflow/tfjs-react-native";
 
-const modelJson = require("../assets/models/model.json");
-const modelWeights = require("../assets/models/model.weights.bin");
+// const modelJson = require("../assets/models/model.json");
+// const modelWeights = require("../assets/models/model.weights.bin");
 
 export default function SignToText({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
