@@ -1,9 +1,10 @@
-import axios from 'axios'
+import axios from "axios";
+const urlNiko = "http://192.168.2.61:3000";
+const urlRama = "http://192.168.1.143:3005";
+
 
 const instance = axios.create({
+  baseURL: urlRama,
+});
 
-  baseURL: 'http://192.168.1.143:3005'
-
-})
-
-export default instance
+export default instance;

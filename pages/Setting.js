@@ -2,20 +2,23 @@ import React,{useState,useEffect} from 'react'
 import { StyleSheet,Image, ScrollView,View,Text, TouchableOpacity  } from 'react-native';
 import { Avatar,Button,Card, Title, Paragraph, TextInput } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-import { useSelector } from 'react-redux';
 import mime from "mime";
 import axios from 'axios'
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { updateUser } from '../store/actions/action';
-
+import QRCode from 'react-native-qrcode-svg';
 
 export default function Setting({navigation}){
   const [edit,setEdit] = useState(false)
-  const {name, profile_picture, access_token} = useSelector(state => state.users)
+  const {name, profile_picture, access_token,unique_code} = useSelector(state => state.users)
   const [image, setImage] = useState('')
   const [newImg, setImg] = useState('')
   const dispatch = useDispatch()
-
+  const qrcodeData = {
+    name,
+    code: unique_code,
+    from:'friends'
+  }
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
@@ -119,26 +122,12 @@ export default function Setting({navigation}){
           // mode={edit ? 'outlined' : 'flat'}
           />
         </View>
-        <View style={{marginTop:50}}>
-          <Text style={{fontFamily:'Montserrat',color:'black',fontSize:20}}>Email</Text>
-          <TextInput
-          disabled={edit ? false : true}
-          autoCapitalize = 'none'
-          style={{ height: 40,backgroundColor:'#f2f2f2',fontFamily:'Montserrat',fontSize:15, borderColor: 'gray',borderBottomWidth:1 }}
-          value="nikolas@mail.com"
-          // mode={edit ? 'outlined' : 'flat'}
-          />
-        </View>
-        <View style={{marginTop:50}}>
-          <Text style={{fontFamily:'Montserrat',color:'black',fontSize:20}}>Password</Text>
-          <TextInput
-          disabled={edit ? false : true}
-          autoCapitalize = 'none'
-          secureTextEntry
-          style={{ height: 40,fontSize:15,backgroundColor:'#f2f2f2', borderColor: 'gray',borderBottomWidth:1 }}
-          value="goodluck"
-          // mode={edit ? 'outlined' : 'flat'}
-          />
+        <View style={{alignItems:'center',marginTop:50}}>
+        <Text style={{fontFamily:'Montserratbold',marginBottom:40}}>Invite me :</Text>
+        <QRCode 
+          value={JSON.stringify(qrcodeData)}
+          size={200}
+        />
         </View>
       </View>
       <View style={{marginTop:20,paddingHorizontal:40}}>
