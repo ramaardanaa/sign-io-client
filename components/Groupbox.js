@@ -12,9 +12,9 @@ export default function Groupbox({navigation, room}){
           <Paragraph style={{fontFamily:'Montserrat'}}>ID : {room.code}</Paragraph>
 
         </View>
-        <View style={{marginTop:18}}>
+        {/* <View style={{marginTop:18}}>
         <Avatar.Text size={24} color='white' label='1'/>
-        </View>
+        </View> */}
       </Card.Content>
     </Card>
   )

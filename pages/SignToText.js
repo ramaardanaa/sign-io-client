@@ -23,8 +23,8 @@ import {
   bundleResourceIO,
 } from "@tensorflow/tfjs-react-native";
 
-const modelJson = require("../assets/models/model.json");
-const modelWeights = require("../assets/models/model.weights.bin");
+// const modelJson = require("../assets/models/model.json");
+// const modelWeights = require("../assets/models/model.weights.bin");
 
 export default function SignToText({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -158,7 +158,7 @@ export default function SignToText({ navigation }) {
 
       const { data } = await axios.post(
         // "http://192.168.2.61:3000/users/upload-picture",
-        "http://192.168.2.61:3000/users/upload-picture",
+        "http://192.168.1.143:3005/users/upload-picture",
         formData,
         {
           headers: {
@@ -168,7 +168,7 @@ export default function SignToText({ navigation }) {
       );
       console.log("test");
       console.log("data", data);
-      const hasil = await axios.post("http://192.168.2.61:3000/sign", {
+      const hasil = await axios.post("http://192.168.1.143:3005/sign", {
         url: data.file,
       });
       console.log(hasil.data.predictions);
@@ -232,13 +232,17 @@ export default function SignToText({ navigation }) {
         )}
       </View>
       <Button
+        dark
+        labelStyle={{fontFamily:'Montserrat'}}
         style={{
           borderRadius: 20,
           paddingVertical: 10,
           marginTop: 20,
           marginHorizontal: 20,
+          color:'#6a4c93',
+          borderWidth:2
         }}
-        mode="contained"
+        mode="outlined"
         onPress={() => {
           takePicture();
         }}
@@ -248,14 +252,15 @@ export default function SignToText({ navigation }) {
 
       {/* Mas rama edit yg ini  */}
       {result && (
+        <View style={{alignItems:'center',marginTop:20}}> 
         <Text
           label="Translated Sign"
           mode="outlined"
-          style={{ marginBottom: 20 }}
+          style={{fontFamily:'Montserratbold',color:'#9F62FF',fontSize:55 }}
         >
-          {result}
+        {result}
         </Text>
-      )}
+      </View>)}
     </View>
   );
 }
@@ -270,7 +275,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    justifyContent: "center",
   },
   cameraPreview: {
     flex: 1,
