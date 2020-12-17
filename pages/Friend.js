@@ -17,7 +17,6 @@ export default function Friend({navigation}){
 
   const handleUserCodeChange = (text) => {
     setUserCode(text)
-    console.log(userCode)
   }
 
   const addingUser = (event) => {

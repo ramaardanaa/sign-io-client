@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Groupbox from '../components/Groupbox'
 import { useSelector, useDispatch } from 'react-redux';
 import { addRoom, fetchRooms, joinRoom } from '../store/actions/action';
+import socket from '../socket/socket';
 
 export default function GroupRoom({navigation}){
   const [visible, setVisible] = useState(false);
@@ -53,6 +54,7 @@ export default function GroupRoom({navigation}){
 
   useEffect(() => {
     dispatch(fetchRooms(access_token))
+    socket.connect()
   }, [])
 
   if(roomLoading) return <Text>loading...</Text>

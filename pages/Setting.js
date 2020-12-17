@@ -36,15 +36,15 @@ export default function Setting({navigation}){
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
         aspect: [1, 1],
-        quality: 0.3,
-        maxWidth: 500,
-        maxHeight: 500
+        quality: 0.1,
+        maxWidth: 224,
+        maxHeight: 224
       });
     
       if (!result.cancelled) {
         const uri = result.uri
 
-        // console.log(uri, 'ini uri')
+        console.log(uri, 'ini uri')
   
         const type = mime.getType(uri);
         const ext = mime.getExtension(type);
@@ -58,7 +58,7 @@ export default function Setting({navigation}){
         // console.log(formData, 'ini formdata');
   
         const { data } = await axios.post(
-          "http://192.168.100.6:3000/users/upload-picture",
+          "http://192.168.100.2:3000/users/upload-picture",
           formData,
           {
             headers: {
