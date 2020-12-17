@@ -5,6 +5,7 @@ import {Avatar,Button} from 'react-native-paper'
 import { View,Text,StyleSheet } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux'
 import GroupDetail from './GroupDetail';
+import Scan from './Scan'
 
 function CustomDrawerContent({ navigation }) {
   const {name, profile_picture, userLoading, unique_code} = useSelector(state => state.users)
@@ -55,6 +56,7 @@ export default function DrawerNavBar(){
       <Drawer.Screen name="Setting" component={Setting}/>
       <Drawer.Screen name="Friend" component={Friend}/>
       <Drawer.Screen name="GroupDetail" component={GroupDetail}/>
+      <Drawer.Screen name="Scan" component={Scan}/>
     </Drawer.Navigator>
   )
 }
