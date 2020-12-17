@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -20,13 +21,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import Chatbox from "../components/Chatbox";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage, fetchOneRoom } from "../store/actions/action";
-// import socket from '../socket/socket';
-import io from "socket.io-client/dist/socket.io";
+import socket from '../socket/socket';
 import { Audio } from "expo-av";
 import * as FileSystem from "expo-file-system";
 import * as Permissions from "expo-permissions";
 import axios from "axios";
 import mime from "mime";
+import * as Speech from 'expo-speech';
 
 // Record setting for OS
 const recordingOptions = {
@@ -62,10 +63,7 @@ export default function GroupConv({ navigation, route }) {
   const [isFetching, setIsFetching] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
 
-  let socket = io.connect("http://192.168.100.6:3000/", {
-    transports: ["websocket"],
-    reconnectionAttempts: 15,
-  });
+
 
   const deleteRecordingFile = async () => {
     try {
@@ -165,21 +163,13 @@ export default function GroupConv({ navigation, route }) {
     setMessage(text);
   };
 
-  socket.on("newMessage", ({ name, message, createdAt }) => {
-    // const payload = {
-    //   id,
-    //   access_token
-    // }
-    // dispatch(fetchOneRoom(payload))
-    const payload = {
-      name,
-      message,
-      createdAt,
-    };
-    const newRealTime = realtimeMessage.map((el) => el);
-    newRealTime.push(payload);
-    setRealtimeMessage(newRealTime);
-  });
+
+  const handleBackButton = (event) => {
+    event.preventDefault()
+    socket.emit('disconnecting', {id: code})
+    navigation.replace('DrawerNavbar',{ screen: 'GroupRoom' })
+  }
+
 
   // Send Message
   const sendMessage = (event) => {
@@ -187,9 +177,11 @@ export default function GroupConv({ navigation, route }) {
     const payload = {
       access_token,
       message,
+
       RoomId: id,
     };
     dispatch(addMessage(payload));
+    Speech.speak(message, { language: "id-ID" })
     const createdAt = Date.now();
     socket.emit("sendMessage", { id: code, name, message, createdAt });
     setMessage("");
@@ -210,17 +202,21 @@ export default function GroupConv({ navigation, route }) {
       message: recordText,
       createdAt,
     });
-    // setMessage("");
+    setMessage("");
   };
+
 
   useEffect(() => {
     const payload = {
       id,
-      access_token,
-    };
-    dispatch(fetchOneRoom(payload));
-    socket.emit("join", code);
-  }, [id]);
+
+      access_token
+    }
+    socket.connect()
+    dispatch(fetchOneRoom(payload))
+    socket.emit('join', code)
+  }, [id])
+
 
   useEffect(() => {
     socket.on("newMessage", ({ name, message, createdAt }) => {
@@ -230,56 +226,34 @@ export default function GroupConv({ navigation, route }) {
       // }
       // dispatch(fetchOneRoom(payload))
       const payload = {
-        name,
-        message,
-        createdAt,
-      };
-      const newRealTime = realtimeMessage.map((el) => el);
-      newRealTime.push(payload);
-      setRealtimeMessage(newRealTime);
-    });
-  }, [realtimeMessage]);
+
+        User: {name}, 
+        message, 
+        createdAt
+      }
+      const newRealTime = realtimeMessage.map(el => el)
+      newRealTime.push(payload)
+      setRealtimeMessage(newRealTime)
+    })
+  }, [])
+
 
   if (loadingRoom) return <Text>Loading...</Text>;
 
-  return (
+
+  return(
+    <>
+    
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          color="#834ea8"
-          onPress={() => navigation.openDrawer()}
-          style={{ width: 5, marginTop: 25, marginBottom: 5, marginLeft: 15 }}
-          labelStyle={{ fontSize: 30 }}
-          mode="text"
-          icon={require("../assets/menu.png")}
-        />
-        <Text
-          style={{
-            fontFamily: "Montserratbold",
-            fontSize: 20,
-            marginTop: 15,
-            color: "#834ea8",
-          }}
-        >
-          {room.name}
-        </Text>
-        <Button
-          color="#834ea8"
-          style={{ width: 5, marginTop: 25, marginBottom: 5, marginLeft: 15 }}
-          labelStyle={{ fontSize: 30 }}
-          mode="text"
-          icon={require("../assets/addfriend.png")}
-        />
-      </View>
-      <View style={{ marginHorizontal: 20, height: 70 }}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {room?.members?.map((member) => {
+      <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+          <Button color='#834ea8' onPress={(event) => handleBackButton(event)} style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:20}} mode='text' icon={require('../assets/back.png')}/>
+            <Text style={{fontFamily:'Montserratbold',fontSize:20,marginTop:15,color:'#834ea8'}}>{room.name}</Text>
+          <Button color='#834ea8' onPress={() => navigation.navigate('GroupDetail')} style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:30}} mode='text' icon={require('../assets/detail.png')}/>
+        </View>
+      <View style={{marginHorizontal:20, height:70}}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {
+          room?.members?.map(member => {
             return (
               <Avatar.Image
                 key={member.id}
@@ -343,7 +317,10 @@ export default function GroupConv({ navigation, route }) {
         </Button>
       </View>
     </View>
-  );
+
+    </>
+  )
+
 }
 
 const styles = StyleSheet.create({

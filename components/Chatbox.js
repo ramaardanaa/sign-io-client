@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux'
 
 export default function Chatbox(props){
   const username= useSelector((state) => state.users.name)
-  
+
   if(username === props.chat.User.name){
     return(
       <Card style={styles.chatMe}>
@@ -45,8 +45,9 @@ const styles = StyleSheet.create({
   },
   chatMe:{
     width:280,
-    backgroundColor: '#834ea8',
+    backgroundColor: '#a583d7',
     marginTop:10,
+    marginLeft:80,
     borderBottomLeftRadius:10,
     borderBottomRightRadius:0,
     borderTopLeftRadius:10,
