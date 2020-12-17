@@ -305,14 +305,15 @@ export default function GroupConv({ navigation, route }) {
       </View>
 
       {/* Type area */}
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row",padding:20,justifyContent:'center',alignItems:'center' }}>
         <TextInput
+          style={{width:250}}
           onChangeText={(text) => handleMessageChange(text)}
           onSubmitEditing={(event) => sendMessage(event)}
-          mode="outlined"
+          mode="flat"
           value={message}
         ></TextInput>
-        <Button mode="contained" style={{ justifyContent: "center" }}>
+        <Button onPress={(event) => sendMessage(event)} mode="contained" style={{ justifyContent: "center",height:55 }}>
           Submit
         </Button>
       </View>
