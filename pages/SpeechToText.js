@@ -73,7 +73,7 @@ export default function SpeechToText({ navigation }) {
 
       const { data } = await axios.post(
         // DONT FORGET TO CHANGE THE LINK
-        "http://192.168.2.61:3000/speech/",
+        "http://192.168.1.143:3005/speech/",
         formData,
         {
           headers: {
@@ -197,9 +197,9 @@ export default function SpeechToText({ navigation }) {
           >
             {isFetching && <ActivityIndicator color="#ffffff" />}
             {!isFetching && (
-              <Text style={styles.text}>
-                {isRecording ? "Recording..." : "Start recording"}
-              </Text>
+              <View>
+                {isRecording ? (<Text>Recording</Text>) : (<Image style={{width:70,height:70}} source={require('../assets/microphone.png')}></Image>)}
+              </View>
             )}
           </TouchableOpacity>
         </View>
