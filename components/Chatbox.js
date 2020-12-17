@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius:10
   },
   chatMe:{
-    width:280,
+    width:270,
     backgroundColor: '#a583d7',
     marginTop:10,
     marginLeft:80,
