@@ -232,10 +232,11 @@ export default function GroupConv({ navigation, route }) {
         createdAt
       }
       const newRealTime = realtimeMessage.map(el => el)
+      console.log(newRealTime)
       newRealTime.push(payload)
       setRealtimeMessage(newRealTime)
     })
-  }, [])
+  }, [realtimeMessage])
 
 
   if (loadingRoom) return <Text>Loading...</Text>;
@@ -248,7 +249,7 @@ export default function GroupConv({ navigation, route }) {
       <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
           <Button color='#834ea8' onPress={(event) => handleBackButton(event)} style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:20}} mode='text' icon={require('../assets/back.png')}/>
             <Text style={{fontFamily:'Montserratbold',fontSize:20,marginTop:15,color:'#834ea8'}}>{room.name}</Text>
-          <Button color='#834ea8' onPress={() => navigation.navigate('GroupDetail',{room})} style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:30}} mode='text' icon={require('../assets/detail.png')}/>
+          <Button color='#834ea8' onPress={() => navigation.navigate('GroupDetail',{room, code})} style={{width:5,marginTop:25,marginBottom:5,marginLeft:15}} labelStyle={{fontSize:30}} mode='text' icon={require('../assets/detail.png')}/>
         </View>
       <View style={{marginHorizontal:20, height:70}}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
