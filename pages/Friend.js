@@ -60,10 +60,14 @@ export default function Friend({navigation}){
             <Card.Actions>
               <View style={{flexDirection:'column',padding:20}}>
               <View style={{flexDirection:'column', alignItems:'center'}}>
-                <Text style={{fontFamily:'Montserratbold',fontSize:20}}>Add a User</Text>
+                <Text style={{fontFamily:'Montserratbold',fontSize:20}}>Add Friends</Text>
                 <TextInput onChangeText={(text) => handleUserCodeChange(text)} mode="outlined" style={{width:300,marginTop:20}} labelStyle={{fontFamily:'Montserrat'}} value={userCode}  placeholder="User Code"></TextInput>
               </View>
               <View style={{flexDirection:'row',marginTop:40,justifyContent:'flex-end'}}>
+              <Button onPress={() => {
+              navigation.navigate('Scan',{status:false})
+              hideModal2()
+              }}>Scan QRCode</Button>
               <Button onPress={(event) => addingUser(event)}>Add</Button>
               <Button onPress={() => {setInviteVisible(false)}}>Cancel</Button>
               </View>

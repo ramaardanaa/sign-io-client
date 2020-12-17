@@ -10,7 +10,8 @@ export default function GroupDetail({navigation,route}){
   const {room, code} = route.params
   const qrcodeData = {
     id: room.id,
-    code
+    code,
+    from:'rooms'
   }
   return(
     <View style={styles.container}>

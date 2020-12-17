@@ -174,10 +174,12 @@ export default function GroupConv({ navigation, route }) {
   // Send Message
   const sendMessage = (event) => {
     event.preventDefault();
+    if(!message){
+      return console.log('isi dulu pesannya')
+    }
     const payload = {
       access_token,
       message,
-
       RoomId: id,
     };
     dispatch(addMessage(payload));

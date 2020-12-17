@@ -73,7 +73,7 @@ export default function SpeechToText({ navigation }) {
 
       const { data } = await axios.post(
         // DONT FORGET TO CHANGE THE LINK
-        "http://192.168.2.61:3000/speech/",
+        "http://192.168.1.143:3005/speech/",
         formData,
         {
           headers: {
