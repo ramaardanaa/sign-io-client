@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import {
   StyleSheet,
   Image,
@@ -13,8 +13,8 @@ import {
   Avatar,
   Button,
   Card,
-  Title,
-  Paragraph,
+  Colors,
+  IconButton,
   TextInput,
 } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
@@ -284,7 +284,23 @@ export default function GroupConv({ navigation, route }) {
             mode="text"
             icon={require("../assets/microphone.png")}
           /> */}
-        <TouchableOpacity
+        
+      </View>
+
+      {/* Type area */}
+      <View style={{ flexDirection: "row",padding:20,justifyContent:'center',alignItems:'center' }}>
+        <TextInput
+          style={{width:300,height:50}}
+          onChangeText={(text) => handleMessageChange(text)}
+          onSubmitEditing={(event) => sendMessage(event)}
+          mode="flat"
+          value={message}
+        ></TextInput>
+        {/* <Button onPress={(event) => sendMessage(event)} mode="contained" style={{ justifyContent: "center",height:30 }}>
+
+          Submit
+        </Button> */}
+        {message === "" ? (<TouchableOpacity
           style={styles.button}
           onPressIn={startRecording}
           onPressOut={handleOnPressOut}
@@ -296,27 +312,19 @@ export default function GroupConv({ navigation, route }) {
                 <Text>Recording</Text>
               ) : (
                 <Image
-                  style={{ width: 70, height: 70 }}
+                  style={{ width: 50, height: 50 }}
                   source={require("../assets/microphone.png")}
                 ></Image>
               )}
             </View>
           )}
-        </TouchableOpacity>
-      </View>
-
-      {/* Type area */}
-      <View style={{ flexDirection: "row",padding:20,justifyContent:'center',alignItems:'center' }}>
-        <TextInput
-          style={{width:250}}
-          onChangeText={(text) => handleMessageChange(text)}
-          onSubmitEditing={(event) => sendMessage(event)}
-          mode="flat"
-          value={message}
-        ></TextInput>
-        <Button onPress={(event) => sendMessage(event)} mode="contained" style={{ justifyContent: "center",height:55 }}>
-          Submit
-        </Button>
+        </TouchableOpacity>): (<TouchableOpacity onPress={(event) => sendMessage(event)}>
+          <Image
+                  style={{ width: 50, height: 50 }}
+                  source={require("../assets/send.png")}
+                ></Image>
+        </TouchableOpacity>)}
+        
       </View>
     </View>
 
