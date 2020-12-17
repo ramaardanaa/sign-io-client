@@ -66,7 +66,9 @@ export default function GroupRoom({navigation}){
             style={{height:100, borderBottomLeftRadius:20,borderBottomRightRadius:20, paddingBottom:20,flexDirection:'row',justifyContent:'space-between'}}>
             <Button color='white' onPress={() => navigation.openDrawer()} style={{width:5,marginTop:25,marginBottom:10,marginLeft:15}} labelStyle={{fontSize:30}} mode='text' icon={require('../assets/menu.png')}/>
             <Text style={{fontFamily:'Montserratbold',color:'white', fontSize:20,marginTop:40}}>Rooms</Text>
+
             <Button style={{width:5,marginTop:30,marginBottom:10,marginLeft:15}} onPress={() => showModal1()} labelStyle={{fontSize:25}} color='white' mode='text' icon={require('../assets/join.png')}></Button>
+
         </LinearGradient>
         <View style={{marginTop:20, paddingHorizontal:15}}>
           {

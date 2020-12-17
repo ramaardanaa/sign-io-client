@@ -2,8 +2,10 @@ import React from 'react'
 import { StyleSheet,Image, ScrollView,View,Text, TouchableOpacity  } from 'react-native';
 import { Avatar,Button,Card, Title, Paragraph } from 'react-native-paper';
 import {useSelector} from 'react-redux'
+
 export default function Chatbox(props){
   const username= useSelector((state) => state.users.name)
+
   if(username === props.chat.User.name){
     return(
       <Card style={styles.chatMe}>

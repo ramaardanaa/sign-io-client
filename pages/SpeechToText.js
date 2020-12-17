@@ -197,9 +197,9 @@ export default function SpeechToText({ navigation }) {
           >
             {isFetching && <ActivityIndicator color="#ffffff" />}
             {!isFetching && (
-              <Text style={styles.text}>
-                {isRecording ? "Recording..." : "Start recording"}
-              </Text>
+              <View>
+                {isRecording ? (<Text>Recording</Text>) : (<Image style={{width:70,height:70}} source={require('../assets/microphone.png')}></Image>)}
+              </View>
             )}
           </TouchableOpacity>
         </View>
